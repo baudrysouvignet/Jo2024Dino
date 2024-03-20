@@ -93,9 +93,6 @@ class Game {
         else {
             this.started = false;
             this.player.doInitialJump();
-            textSize(32);
-            fill(32, 33, 36);
-            text("Presiona la barra espaciadora para jugar", 205, 585);
         }
 
         if (this.fpsVisible) {

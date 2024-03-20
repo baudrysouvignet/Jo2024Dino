@@ -1,5 +1,5 @@
 class Dinosaur {
-    constructor(){
+    constructor() {
         this.x = 200;
         this.w = 80;
         this.y = 450;
@@ -33,32 +33,33 @@ class Dinosaur {
         this.activeCollisionBoxes = this.collisionBoxes;
     }
 
-    f(x){
-        return (-4*parseFloat(x)*(parseFloat(x)-1))*172;
+    f(x) {
+        return (-4 * parseFloat(x) * (parseFloat(x) - 1)) * 172;
     }
 
-    update(){ 
-        if(this.jumping){ 
-            this.y=448-Math.floor(this.f(this.jump_stage));
+    update() {
+        document.querySelector('#die').innerHTML = '';
+        if (this.jumping) {
+            this.y = 448 - Math.floor(this.f(this.jump_stage));
             this.jump_stage += 0.03;
             this.last_jump_y = this.y;
             this.img = this.img_running_1;
-         
-            if(this.jump_stage>1){
+
+            if (this.jump_stage > 1) {
                 this.jumping = false;
                 this.jump_stage = 0;
                 this.y = 450;
             }
         }
-        else if(this.crouching){
-            if(frameCount%10==0 && !this.will_die){
+        else if (this.crouching) {
+            if (frameCount % 10 == 0 && !this.will_die) {
                 this.img = this.crouching_imgs[this.img_crouching_index ^= 1];
             }
         }
-        else{ 
-            if(frameCount%10==0){
+        else {
+            if (frameCount % 10 == 0) {
                 this.img_index++;
-                if(this.img_index==3){
+                if (this.img_index == 3) {
                     this.img_index = 0;
                 }
                 this.img = this.imgs[this.img_index];
@@ -67,14 +68,14 @@ class Dinosaur {
         this.updateYCollisionBoxes();
     }
 
-    doInitialJump(){
-        if(this.jumping){
-            this.y=448-Math.floor(this.f(this.jump_stage));
+    doInitialJump() {
+        if (this.jumping) {
+            this.y = 448 - Math.floor(this.f(this.jump_stage));
             this.jump_stage += 0.03;
             this.last_jump_y = this.y;
             this.img = this.img_running_1;
-         
-            if(this.jump_stage>1){
+
+            if (this.jump_stage > 1) {
                 this.jumping = false;
                 this.jump_stage = 0;
                 this.y = 450;
@@ -83,34 +84,27 @@ class Dinosaur {
         }
     }
 
-    jump(){
+    jump() {
         this.jumping = true;
     }
 
-    die(... enemy_height){ 
+    die(...enemy_height) {
         this.living = false;
 
-        if(game.night){
-            image(game.imgGameOverNight, ((game.window_width/2)-174), 350, 347, 20);
-            this.img = this.img_die_night;
-        }
-        else{
-            image(game.imgGameOver, ((game.window_width/2)-174), 350, 347, 20);
-            this.img = this.img_die;
-        }
-        
-        if(this.isCrouching() && this.isStoppingJumping()){
+        document.querySelector('#die').innerHTML = 'vous avez fait tomber la flamme olympique !';
+
+        if (this.isCrouching() && this.isStoppingJumping()) {
             this.stop_crouch();
         }
-        else if (this.isCrouching()){
+        else if (this.isCrouching()) {
             this.stop_crouch();
-            this.x+=30;
+            this.x += 30;
         }
-    
+
         let eh = (enemy_height.length >= 1) ? enemy_height[0] : null;
-         
-        if(eh != null){
-           this.y = eh-(this.h-5);
+
+        if (eh != null) {
+            this.y = eh - (this.h - 5);
         }
         this.w = 80;
         this.h = 86;
@@ -119,14 +113,14 @@ class Dinosaur {
         noLoop();
     }
 
-    stop_jump(... stop_jump_enemy_height){
+    stop_jump(...stop_jump_enemy_height) {
 
         let eh = (stop_jump_enemy_height.length >= 1) ? stop_jump_enemy_height[0] : null;
-         
-        if(eh != null){
-           this.y = eh-(this.h-5);
+
+        if (eh != null) {
+            this.y = eh - (this.h - 5);
         }
-        else{
+        else {
             this.y = 450;
         }
 
@@ -135,35 +129,35 @@ class Dinosaur {
         this.crouch();
     }
 
-    crouch(){
-        
-        if(this.y<=450 && !this.will_die && this.living){
+    crouch() {
+
+        if (this.y <= 450 && !this.will_die && this.living) {
             this.crouching = true;
             this.activeCollisionBoxes = this.crouchCollisionBoxes;
             this.y += 34;
             this.w = 110;
             this.h = 52;
         }
-        else if (this.y<=450){
+        else if (this.y <= 450) {
             this.crouching = true;
         }
 
         this.updateCrouchingImage();
 
     }
-    
-    updateCrouchingImage(){
-        if(this.will_die){
+
+    updateCrouchingImage() {
+        if (this.will_die) {
             this.img = this.img_die;
         }
-        else{
+        else {
             this.img = this.crouching_imgs[this.img_crouching_index];
         }
     }
 
-    stop_crouch(){
-    
-        if(this.y>450){
+    stop_crouch() {
+
+        if (this.y > 450) {
             this.crouching = false;
             this.stop_jumping = false;
             this.activeCollisionBoxes = this.collisionBoxes;
@@ -171,57 +165,57 @@ class Dinosaur {
             this.w = 80;
             this.h = 86;
         }
-       
-        if(this.living){
+
+        if (this.living) {
             this.img = this.imgs[this.img_index];
         }
 
         this.updateYCollisionBoxes();
- 
+
     }
-    
-    createCollisionBoxes(){
-        for (let b of new CollisionBox(6,0).getCollisionBoxes()){
+
+    createCollisionBoxes() {
+        for (let b of new CollisionBox(6, 0).getCollisionBoxes()) {
             this.collisionBoxes.push(b);
-        } 
-    }
-
-    createCrouchCollisionBoxes(){
-        for (let b of new CollisionBox(7,0).getCollisionBoxes()){
-            this.crouchCollisionBoxes.push(b);
-        } 
-    }
-
-    updateYCollisionBoxes(){
-        for (let i=0; i<this.collisionBoxes.length;i++){
-            this.collisionBoxes[i].y=this.y+this.yPositionOfCollisionBoxes[i];
         }
     }
 
-    updateXYCollisionBoxes(){
-        for (let i=0; i<this.collisionBoxes.length;i++){
-            this.collisionBoxes[i].x=this.x+this.xPositionOfCollisionBoxes[i];
+    createCrouchCollisionBoxes() {
+        for (let b of new CollisionBox(7, 0).getCollisionBoxes()) {
+            this.crouchCollisionBoxes.push(b);
+        }
+    }
+
+    updateYCollisionBoxes() {
+        for (let i = 0; i < this.collisionBoxes.length; i++) {
+            this.collisionBoxes[i].y = this.y + this.yPositionOfCollisionBoxes[i];
+        }
+    }
+
+    updateXYCollisionBoxes() {
+        for (let i = 0; i < this.collisionBoxes.length; i++) {
+            this.collisionBoxes[i].x = this.x + this.xPositionOfCollisionBoxes[i];
         }
         this.updateYCollisionBoxes();
     }
 
-    display(){
+    display() {
         image(this.img, this.x, this.y, this.w, this.h);
     }
 
-    isJumping(){
+    isJumping() {
         return this.jumping;
     }
 
-    isStoppingJumping(){
+    isStoppingJumping() {
         return this.stop_jumping;
     }
 
-    isCrouching(){
+    isCrouching() {
         return this.crouching;
     }
 
-    isAlive(){
+    isAlive() {
         return this.living;
     }
 }

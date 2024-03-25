@@ -32,10 +32,24 @@ class Dinosaur {
         this.createCollisionBoxes();
         this.createCrouchCollisionBoxes();
         this.activeCollisionBoxes = this.collisionBoxes;
+        this.isInvisible = false;
+        this.dinoOpacity = 255;
     }
 
     f(x) {
         return (-4 * parseFloat(x) * (parseFloat(x) - 1)) * 172;
+    }
+
+    changeInvisible(){
+        switch (this.isInvisible){
+            case true:
+                this.dinoOpacity = 255;
+                break;
+            case false:
+                this.dinoOpacity = 100;
+                break;
+        }
+        this.isInvisible = !this.isInvisible;
     }
 
     update() {
@@ -90,28 +104,30 @@ class Dinosaur {
     }
 
     die(...enemy_height) {
-        this.living = false;
+        if (!this.isInvisible) {
+            this.living = false;
 
-        document.querySelector('#die').innerHTML = 'Perdu ! vous avez fait tomber la flamme olympique !';
+            document.querySelector('#die').innerHTML = 'Perdu ! vous avez fait tomber la flamme olympique !';
 
-        if (this.isCrouching() && this.isStoppingJumping()) {
-            this.stop_crouch();
+            if (this.isCrouching() && this.isStoppingJumping()) {
+                this.stop_crouch();
+            }
+            else if (this.isCrouching()) {
+                this.stop_crouch();
+                this.x += 30;
+            }
+
+            let eh = (enemy_height.length >= 1) ? enemy_height[0] : null;
+
+            if (eh != null) {
+                this.y = eh - (this.h - 5);
+            }
+            this.w = 80;
+            this.h = 86;
+            this.activeCollisionBoxes = this.collisionBoxes;
+            this.updateXYCollisionBoxes();
+            noLoop();
         }
-        else if (this.isCrouching()) {
-            this.stop_crouch();
-            this.x += 30;
-        }
-
-        let eh = (enemy_height.length >= 1) ? enemy_height[0] : null;
-
-        if (eh != null) {
-            this.y = eh - (this.h - 5);
-        }
-        this.w = 80;
-        this.h = 86;
-        this.activeCollisionBoxes = this.collisionBoxes;
-        this.updateXYCollisionBoxes();
-        noLoop();
     }
 
     stop_jump(...stop_jump_enemy_height) {
@@ -201,7 +217,10 @@ class Dinosaur {
     }
 
     display() {
+        push();
+        tint(255, this.dinoOpacity); 
         image(this.img, this.x, this.y, this.w, this.h);
+        pop();
     }
 
     isJumping() {

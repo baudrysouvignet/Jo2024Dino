@@ -1,19 +1,19 @@
-class Cactus{
-    constructor(){
+class Cactus {
+    constructor() {
 
-        this.randomDistance = Math.floor(random (20,40));
+        this.randomDistance = Math.floor(random(20, 40));
         this.x = game.window_width + this.randomDistance;
 
         this.typeArray = [[0, 0.1], [1, 0.15], [2, 0.2], [3, 0.25], [4, 0.1], [5, 0.2]];
         this.type = this.typeArray[Math.floor(Math.random() * this.typeArray.length)][0];
 
-        
-        this.collisionBoxes=[];
 
-        if(this.type < 3){
+        this.collisionBoxes = [];
+
+        if (this.type < 3) {
             this.h = 66;
             this.y = 470;
-        }else{
+        } else {
             this.h = 96;
             this.y = 444;
         }
@@ -21,40 +21,40 @@ class Cactus{
             case 0:
                 this.w = 30;
                 this.img = game.sprite.get(228, 2, 17, 35);
-            break;
+                break;
             case 1:
                 this.w = 64;
                 this.img = game.sprite.get(245, 2, 34, 35);
-            break;
+                break;
             case 2:
                 this.w = 98;
                 this.img = game.sprite.get(279, 2, 51, 35);
-            break;
+                break;
             case 3:
                 this.w = 46;
                 this.img = game.sprite.get(332, 2, 25, 50);
-            break;
+                break;
             case 4:
                 this.w = 96;
                 this.img = game.sprite.get(357, 2, 50, 50);
-            break;
+                break;
             case 5:
                 this.w = 146;
                 this.img = game.sprite.get(407, 2, 75, 50);
-            break;
+                break;
         }
-        this.createCollisionBoxes(this.randomDistance-70);
+        this.createCollisionBoxes(this.randomDistance - 70);
     }
 
-    update(speed){
+    update(speed) {
         this.x -= speed;
     }
-    createCollisionBoxes(distanceOffset){
-        for (let b of new CollisionBox(this.type,distanceOffset).getCollisionBoxes()){
+    createCollisionBoxes(distanceOffset) {
+        for (let b of new CollisionBox(this.type, distanceOffset).getCollisionBoxes()) {
             this.collisionBoxes.push(b);
         }
     }
-    display(){
+    display() {
         image(this.img, this.x, this.y, this.w, this.h);
     }
 }

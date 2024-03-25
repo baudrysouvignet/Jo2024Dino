@@ -15,6 +15,8 @@ class Game {
     imgGameOverNight;
     showFPS = true;
     textColor = "#CA7171";
+    invisibleDate = new Date('August 2, 1992');
+    displayInvisibleTime = document.querySelector("#invisibleCollDown");
 
     constructor(start, debugged) {
         this.started = start;
@@ -42,9 +44,33 @@ class Game {
         }
     }
 
+    switchToInvisible() {
+        if ((new Date().getTime() - this.invisibleDate.getTime()) / 1000 > 30) {
+            this.invisibleDate = new Date();
+            this.player.changeInvisible();
+
+            setTimeout(() => {
+                this.switchToVisible();
+            }, 3000);
+        }
+
+    }
+
+    switchToVisible() {
+        this.player.changeInvisible();
+    }
+
     update() {
         document.querySelector("#score").innerHTML = Math.floor(this.score);
         document.querySelector("#highScore").innerHTML = Math.floor(this.highScore);
+
+        let timeInvisible = Math.abs(Math.floor((30 - (new Date().getTime() - this.invisibleDate.getTime()) / 1000)));
+        if (timeInvisible < 30) {
+            document.querySelector("#invisibleCollDown").innerHTML = timeInvisible + ' secondes';
+        } else {
+            document.querySelector("#invisibleCollDown").innerHTML = 'Prêt';
+        }
+
         if (this.player.isAlive() && this.started) {
             this.score += 1 * (this.speed / 70);
             this.ground.update(Math.floor(this.speed));

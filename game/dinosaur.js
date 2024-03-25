@@ -13,6 +13,7 @@ class Dinosaur {
         this.stop_jumping = false;
         this.will_die = false;
         this.jump_stage = 0;
+        this.jump_gravity = 0.02;
         this.img;
         this.img_running_1;
         this.img_running_2;
@@ -41,7 +42,7 @@ class Dinosaur {
         document.querySelector('#die').innerHTML = '';
         if (this.jumping) {
             this.y = 448 - Math.floor(this.f(this.jump_stage));
-            this.jump_stage += 0.03;
+            this.jump_stage += this.jump_gravity;
             this.last_jump_y = this.y;
             this.img = this.img_running_1;
 
@@ -71,7 +72,7 @@ class Dinosaur {
     doInitialJump() {
         if (this.jumping) {
             this.y = 448 - Math.floor(this.f(this.jump_stage));
-            this.jump_stage += 0.03;
+            this.jump_stage += this.jump_gravity;
             this.last_jump_y = this.y;
             this.img = this.img_running_1;
 

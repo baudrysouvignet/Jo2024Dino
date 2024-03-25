@@ -1,8 +1,7 @@
 class Cactus{
-
     constructor(){
 
-        this.randomDistance = Math.floor(random (40,80));
+        this.randomDistance = Math.floor(random (20,40));
         this.x = game.window_width + this.randomDistance;
         this.type = Math.floor(random(6));
         this.collisionBoxes=[];

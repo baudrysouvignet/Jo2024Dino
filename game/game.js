@@ -1,7 +1,8 @@
 class Game {
     last_bird_x = 1350;
-    speed = 12;
-    maxSpeed = 20;
+    speed = 10;
+    defaultSpeed = 10;
+    maxSpeed = 21;
     score = 0;
     highScore = localStorage.getItem("highScore") || 0;
     last_day_change = 1;
@@ -12,6 +13,8 @@ class Game {
     sprite;
     imgGameOver;
     imgGameOverNight;
+    showFPS = true;
+    textColor = "#CA7171";
 
     constructor(start, debugged) {
         this.started = start;
@@ -24,22 +27,45 @@ class Game {
         this.birds = [];
         this.clouds = [];
         this.stars = [];
+        this.isShiftPressed = false;
+    }
+
+    keyPressed() {
+        if (key === "SHIFT") {
+            this.isShiftPressed = true;
+        }
+    }
+
+    keyReleased() {
+        if (key === "SHIFT") {
+            this.isShiftPressed = false;
+        }
     }
 
     update() {
         document.querySelector("#score").innerHTML = Math.floor(this.score);
         document.querySelector("#highScore").innerHTML = Math.floor(this.highScore);
         if (this.player.isAlive() && this.started) {
-            if (Math.floor(this.score) % 1000 == 0 && Math.floor(this.score) > this.last_day_change) {
-                this.last_day_change = Math.floor(this.score);
-                this.night = !this.night;
-                if (this.night) {
-                    this.moon.changePhase();
-                }
-            }
             this.score += 1 * (this.speed / 70);
             this.ground.update(Math.floor(this.speed));
             this.player.update();
+            console.log(this.speed);
+            if (keyIsDown(SHIFT)) {
+                if (!this.isShiftPressed) {
+                    this.isShiftPressed = true
+                    this.speed += 10;
+                    this.defaultSpeed = this.speed - 10;
+                }
+            } else {
+                this.isShiftPressed = false;
+                this.speed = this.defaultSpeed;
+            }
+
+            if (this.showFPS) {
+                fill(this.textColor);
+                text("FPS", 50, 50);
+                text(parseFloat(frameRate()).toFixed(3), 120, 50);
+            }
 
             if (this.player.will_die) {
                 this.player.die();
@@ -86,8 +112,9 @@ class Game {
                 this.check_collisions();
             }
 
-            if (this.speed < this.maxSpeed) {
-                this.speed += 0.001;
+            if (this.defaultSpeed < this.maxSpeed) {
+                this.defaultSpeed += 0.01;
+                this.speed += 0.005;
             }
         }
         else {
@@ -383,7 +410,6 @@ class Game {
 
     set_debug() {
         this.collisionBoxesVisible = this.debug;
-        this.fpsVisible = this.debug;
     }
 
     keyPressed(key) {

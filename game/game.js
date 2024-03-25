@@ -165,8 +165,8 @@ class Game {
             }
 
             if (this.defaultSpeed < this.maxSpeed) {
-                this.defaultSpeed += 0.01;
-                this.speed += 0.002;
+                this.defaultSpeed += 0.005;
+                this.speed += 0.005;
             }
         }
         else {

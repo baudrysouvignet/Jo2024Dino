@@ -25,48 +25,22 @@ class CollisionBox {
                     this.boxes.push(new CollisionBox(this.x + 102, 472, 30, 64));
                     break;
                 case 2:
-                    this.boxes.push(new CollisionBox(this.x + 71, 487, 11, 29));
-                    this.boxes.push(new CollisionBox(this.x + 80, 472, 11, 64));
-                    this.boxes.push(new CollisionBox(this.x + 90, 479, 12, 29));
-
-                    this.boxes.push(new CollisionBox(this.x + 101, 478, 12, 39));
-                    this.boxes.push(new CollisionBox(this.x + 112, 472, 12, 64));
-                    this.boxes.push(new CollisionBox(this.x + 123, 485, 12, 37));
-
-                    this.boxes.push(new CollisionBox(this.x + 134, 477, 12, 31));
-                    this.boxes.push(new CollisionBox(this.x + 145, 472, 12, 64));
-                    this.boxes.push(new CollisionBox(this.x + 156, 479, 10, 33));
+                    this.boxes.push(new CollisionBox(this.x + 71, 472, 31, 64));
+                    this.boxes.push(new CollisionBox(this.x + 112 - 9, 472, 31, 64));
+                    this.boxes.push(new CollisionBox(this.x + 145 - 9, 472, 31, 64));
                     break;
                 case 3:
-                    this.boxes.push(new CollisionBox(this.x + 71, 469, 15, 36));
-                    this.boxes.push(new CollisionBox(this.x + 85, 446, 16, 90));
-                    this.boxes.push(new CollisionBox(this.x + 100, 465, 14, 39));
+                    this.boxes.push(new CollisionBox(this.x + 70, 446, 44, 90));
                     break;
                 case 4:
-                    this.boxes.push(new CollisionBox(this.x + 71, 469, 15, 36));
-                    this.boxes.push(new CollisionBox(this.x + 85, 446, 16, 90));
-                    this.boxes.push(new CollisionBox(this.x + 100, 465, 18, 37));
 
-                    this.boxes.push(new CollisionBox(this.x + 117, 456, 18, 39));
-                    this.boxes.push(new CollisionBox(this.x + 134, 446, 16, 90));
-                    this.boxes.push(new CollisionBox(this.x + 149, 465, 15, 39));
+                    this.boxes.push(new CollisionBox(this.x + 70, 446, 46, 90));
+                    this.boxes.push(new CollisionBox(this.x + 120, 446, 46, 90));
                     break;
                 case 5:
-                    this.boxes.push(new CollisionBox(this.x + 71, 469, 16, 38));
-                    this.boxes.push(new CollisionBox(this.x + 86, 446, 16, 90));
-                    this.boxes.push(new CollisionBox(this.x + 101, 466, 17, 37));
-
-                    this.boxes.push(new CollisionBox(this.x + 117, 476, 13, 33));
-                    this.boxes.push(new CollisionBox(this.x + 129, 450, 12, 86));
-                    this.boxes.push(new CollisionBox(this.x + 140, 459, 12, 26));
-
-                    this.boxes.push(new CollisionBox(this.x + 144, 491, 11, 26));
-                    this.boxes.push(new CollisionBox(this.x + 154, 484, 9, 53));
-                    this.boxes.push(new CollisionBox(this.x + 162, 491, 11, 26));
-
-                    this.boxes.push(new CollisionBox(this.x + 167, 456, 18, 39));
-                    this.boxes.push(new CollisionBox(this.x + 184, 446, 16, 90));
-                    this.boxes.push(new CollisionBox(this.x + 199, 467, 15, 37));
+                    this.boxes.push(new CollisionBox(this.x + 70, 446, 46, 90));
+                    this.boxes.push(new CollisionBox(this.x + 120, 446, 46, 90));
+                    this.boxes.push(new CollisionBox(this.x + 167, 446, 46, 90));
                     break;
                 case 6:
                     this.boxes.push(new CollisionBox(203, 480, 10, 23));

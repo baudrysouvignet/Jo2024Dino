@@ -49,7 +49,6 @@ class Game {
             this.score += 1 * (this.speed / 70);
             this.ground.update(Math.floor(this.speed));
             this.player.update();
-            console.log(this.speed);
             if (keyIsDown(SHIFT)) {
                 if (!this.isShiftPressed) {
                     this.isShiftPressed = true

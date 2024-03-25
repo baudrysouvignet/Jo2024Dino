@@ -15,6 +15,30 @@ main {
     transform: translateY(50%);
 }
 
+.rules {
+    position: absolute;
+    top: 28%;
+    transform: translateY(-50%);
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-end;
+}
+
+.rules>div {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.rules>div * {
+    font-size: 16px;
+    color: #CA7171;
+    font-family: Helvetica, sans-serif;
+    text-transform: capitalize;
+}
+
 .score {
     position: absolute;
     bottom: 100px;

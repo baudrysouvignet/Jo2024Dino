@@ -18,6 +18,9 @@ class Game {
     invisibleDate = new Date('August 2, 1992');
     displayInvisibleTime = document.querySelector("#invisibleCollDown");
     isXPressed = false
+    isPause = false
+    timeSinceLastPause = 0;
+    pause_delay = 250;
 
     constructor(start, debugged) {
         this.started = start;
@@ -31,18 +34,6 @@ class Game {
         this.clouds = [];
         this.stars = [];
         this.isShiftPressed = false;
-    }
-
-    keyPressed() {
-        if (key === "SHIFT") {
-            this.isShiftPressed = true;
-        }
-    }
-
-    keyReleased() {
-        if (key === "SHIFT") {
-            this.isShiftPressed = false;
-        }
     }
 
     switchToInvisible() {
@@ -97,6 +88,18 @@ class Game {
             document.querySelector("#invisibleCollDown").innerHTML = 'Prêt';
         }
 
+
+        if (keyIsPressed) {
+            if (key == "Escape") {
+                let currentTime = millis();
+                if (currentTime - this.timeSinceLastPause >= this.pause_delay) {
+                    this.timeSinceLastPause = currentTime;
+                    this.started = !this.started;
+                    this.isPause = !this.isPause;
+                }
+            }
+        }
+
         if (this.player.isAlive() && this.started) {
             this.score += 1 * (this.speed / 70);
             this.ground.update(Math.floor(this.speed));
@@ -104,6 +107,7 @@ class Game {
 
             this.moreSpeed();
             this.lessSpeed();
+
             if (!keyIsDown(RIGHT_ARROW) && !keyIsDown(LEFT_ARROW)) {
                 this.speed = this.defaultSpeed;
             }
@@ -167,7 +171,9 @@ class Game {
         }
         else {
             this.started = false;
-            this.player.doInitialJump();
+            if (!this.isPause) {
+                this.player.doInitialJump();
+            }
         }
 
         if (this.fpsVisible) {
@@ -177,17 +183,12 @@ class Game {
     }
 
     display() {
-        if (this.started) {
-            this.ground.display();
-            if (this.night) {
-                for (let s of this.stars) {
-                    s.display();
-                }
-                this.moon.display();
+        this.ground.display();
+        if (this.night) {
+            for (let s of this.stars) {
+                s.display();
             }
-        }
-        else {
-            this.ground.displayGameNotStarted();
+            this.moon.display();
         }
         for (let cl of this.clouds) {
             cl.display();

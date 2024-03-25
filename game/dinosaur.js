@@ -91,7 +91,7 @@ class Dinosaur {
     die(...enemy_height) {
         this.living = false;
 
-        document.querySelector('#die').innerHTML = 'vous avez fait tomber la flamme olympique !';
+        document.querySelector('#die').innerHTML = 'Perdu ! vous avez fait tomber la flamme olympique !';
 
         if (this.isCrouching() && this.isStoppingJumping()) {
             this.stop_crouch();

@@ -3,7 +3,11 @@ class Cactus{
 
         this.randomDistance = Math.floor(random (20,40));
         this.x = game.window_width + this.randomDistance;
-        this.type = Math.floor(random(6));
+
+        this.typeArray = [[0, 0.1], [1, 0.15], [2, 0.2], [3, 0.25], [4, 0.1], [5, 0.2]];
+        this.type = this.typeArray[Math.floor(Math.random() * this.typeArray.length)][0];
+
+        
         this.collisionBoxes=[];
 
         if(this.type < 3){

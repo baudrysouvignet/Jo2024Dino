@@ -113,7 +113,7 @@ class Game {
 
             if (this.defaultSpeed < this.maxSpeed) {
                 this.defaultSpeed += 0.01;
-                this.speed += 0.005;
+                this.speed += 0.002;
             }
         }
         else {
@@ -202,9 +202,13 @@ class Game {
     }
 
     spawn_enemy() {
-        if (Math.floor(random(10)) == 0) {
-            if (this.score > 450) {
+        if (this.score > 450) {
+            if (Math.floor(random(10)) == 0) {
                 this.birds.push(new Bird());
+
+            }
+            else {
+                this.cactae.push(new Cactus());
             }
         }
         else {

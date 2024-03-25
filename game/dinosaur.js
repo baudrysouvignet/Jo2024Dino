@@ -25,7 +25,7 @@ class Dinosaur {
         this.imgs = [];
         this.crouching_imgs = [];
         this.xPositionOfCollisionBoxes = [2, 12, 12, 16, 20, 20, 37, 28, 39];
-        this.yPositionOfCollisionBoxes = [30, 42, 52, 60, 67, 72, 72, 30, 4];
+        this.yPositionOfCollisionBoxes = [35, 42, 52, 60, 67, 72, 72, 30, 4];
         this.collisionBoxes = [];
         this.activeCollisionBoxes;
         this.crouchCollisionBoxes = [];

@@ -17,6 +17,7 @@ class Game {
     textColor = "#CA7171";
     invisibleDate = new Date('August 2, 1992');
     displayInvisibleTime = document.querySelector("#invisibleCollDown");
+    isXPressed = false
 
     constructor(start, debugged) {
         this.started = start;
@@ -51,7 +52,7 @@ class Game {
 
             setTimeout(() => {
                 this.switchToVisible();
-            }, 3000);
+            }, 2000);
         }
 
     }
@@ -59,6 +60,31 @@ class Game {
     switchToVisible() {
         this.player.changeInvisible();
     }
+
+    moreSpeed() {
+        if (keyIsDown(RIGHT_ARROW)) {
+            if (!this.isShiftPressed) {
+                this.isShiftPressed = true
+                this.speed += 10;
+                this.defaultSpeed = this.speed - 10;
+            }
+        } else {
+            this.isShiftPressed = false;
+        }
+    }
+
+    lessSpeed() {
+        if (keyIsDown(LEFT_ARROW)) {
+            if (!this.isXPressed) {
+                this.isXPressed = true
+                this.speed = this.speed - 5;
+                this.defaultSpeed = this.speed + 5;
+            }
+        } else {
+            this.isXPressed = false;
+        }
+    }
+
 
     update() {
         document.querySelector("#score").innerHTML = Math.floor(this.score);
@@ -75,16 +101,13 @@ class Game {
             this.score += 1 * (this.speed / 70);
             this.ground.update(Math.floor(this.speed));
             this.player.update();
-            if (keyIsDown(SHIFT)) {
-                if (!this.isShiftPressed) {
-                    this.isShiftPressed = true
-                    this.speed += 10;
-                    this.defaultSpeed = this.speed - 10;
-                }
-            } else {
-                this.isShiftPressed = false;
+
+            this.moreSpeed();
+            this.lessSpeed();
+            if (!keyIsDown(RIGHT_ARROW) && !keyIsDown(LEFT_ARROW)) {
                 this.speed = this.defaultSpeed;
             }
+
 
             if (this.showFPS) {
                 fill(this.textColor);

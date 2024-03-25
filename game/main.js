@@ -51,7 +51,7 @@ function draw() {
 
 function checkIfKeyIsPressed() {
   if (keyIsPressed) {
-    if (key === "e" || key === "E") {
+    if (key === "w" || key === "W") {
       this.game.switchToInvisible();
     }
 

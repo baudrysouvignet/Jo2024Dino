@@ -58,9 +58,6 @@ function checkIfKeyIsPressed() {
     if (key === "ArrowUp") {
       this.game.keyPressed("UP");
     }
-    else if (key === "ArrowDown") {
-      this.game.keyPressed("DOWN");
-    }
     else if (key === " ") {
       if (!this.game.player.isAlive() && this.restartFromSpaceKeyEnabled) {
         setTimeout(() => {
